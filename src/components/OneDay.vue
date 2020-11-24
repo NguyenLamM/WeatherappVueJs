@@ -1,21 +1,25 @@
 <template>
-  <p>{{query}}</p>
-  <input type="text" placeholder="Ville" v-model="query" ville="test" @keypress="fetchWeather">
   <div>
-    <div class="result-container" v-if="typeof weather.main != 'undefined'">
-      <div class="Location"> {{ weather.name }}, {{ weather.sys.country}}</div>
-      <div class="data">{{ dateBuilder() }}</div>
-    </div>
-    <div class="weather-box"  v-if="typeof weather.main != 'undefined'">
-      <div class="temp">{{ Math.round(weather.main.temp) }}°c</div>
-      <div class="weather">{{weather.weather[0].main}}</div>
+    <search @ville-envoyee="fetchWeather" />
+    <div>
+      <div class="result-container" v-if="typeof weather.main != 'undefined'">
+        <div class="Location"> {{ weather.name }}, {{ weather.sys.country}}</div>
+        <div class="data">{{ dateBuilder() }}</div>
+      </div>
+      <div class="weather-box"  v-if="typeof weather.main != 'undefined'">
+        <div class="temp">{{ Math.round(weather.main.temp) }}°c</div>
+        <div class="weather">{{weather.weather[0].main}}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Search from '../components/Search'
   export default{
-    name: 'one-day',
+    components:{
+      Search,
+    },
     data (){
       return {
         api_key: '057235dd5c2aec8dee5db666fe163476',
@@ -26,12 +30,11 @@
     },
     methods: {
       fetchWeather (e) {
-        if (e.key == "Enter") {
+          this.query = e.ville;
           fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
             .then(res => {
               return res.json();
             }).then(this.setResults);
-        }
       },
       setResults(results){
       this.weather = results;
