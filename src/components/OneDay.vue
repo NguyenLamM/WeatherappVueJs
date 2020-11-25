@@ -17,6 +17,7 @@
 <script>
   import Search from '../components/Search'
   export default{
+    name: "one-day",
     components:{
       Search,
     },
@@ -36,6 +37,7 @@
               return res.json();
             }).then(this.setResults);
       },
+
       setResults(results){
       this.weather = results;
       },
