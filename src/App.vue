@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container bg-gray-200">
     <nav-bar />
     <router-view></router-view>
   </div>
@@ -7,12 +7,12 @@
 
 <script>
   import NavBar from './components/nav/NavBar'
-export default {
-  name: 'App',
-  components:{
-    NavBar,
-  },
-}
+  export default {
+    name: 'App',
+    components:{
+      NavBar,
+    },
+  }
 </script>
 
 <style>
@@ -22,6 +22,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+body{
+  margin: 0;
 }
 </style>

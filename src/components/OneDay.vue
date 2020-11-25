@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div
+    id="one-day--container"
+    class=""
+    :class="typeof weather.main != 'undefined'"
+
+  >
     <search @ville-envoyee="fetchWeather" />
     <div>
       <div class="result-container" v-if="typeof weather.main != 'undefined'">
@@ -17,6 +22,7 @@
 <script>
   import Search from '../components/Search'
   export default{
+    name: 'one-day',
     components:{
       Search,
     },
@@ -37,7 +43,14 @@
             }).then(this.setResults);
       },
       setResults(results){
-      this.weather = results;
+        console.log(results)
+        this.weather = results;
+        var element = document.getElementById("one-day--container");
+        if (this.weather.main.temp > 16){
+          element.classList.add("hot")
+        } else {
+          element.classList.add("cold")
+        }
       },
        dateBuilder () {
         let d = new Date();
@@ -52,3 +65,17 @@
     }
   }
 </script>
+
+<style>
+  #one-day--container{
+    height: 100vh;
+  }
+  #one-day--container.cold{
+    background-image: url('../assets/cold.png');
+    background-size: cover;
+  }
+  #one-day--container.hot{
+    background-image: url('../assets/hot.png');
+    background-size: cover;
+  }
+</style>

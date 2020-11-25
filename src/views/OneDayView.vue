@@ -1,6 +1,6 @@
 <template>
   <h1>One day</h1>
-  <one-day/>
+  <one-day @ville-envoyee="weather"/>
 </template>
 
 <script>
