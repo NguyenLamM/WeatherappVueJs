@@ -7,7 +7,8 @@
         <div
           class="h-48 flex flex-col justify-center w-2/4 mx-auto rounded-lg relative one--container"
           v-if="index % 4 == 0"
-          >
+          :class="{'hot': mediumWeather(weather.main.temp_max), 'cold': !mediumWeather(weather.main.temp_max) }"
+        >
           <div>
             <p>{{weather.dt_txt}}</p>
             <p>{{weather.weather[0].main}}</p>
@@ -35,6 +36,9 @@
         weatherWeek: {}
       }
     },
+    computed: {
+
+    },
     methods: {
       fetchWeatherWeek (e) {
           this.query = e.ville;
@@ -45,22 +49,10 @@
       },
       setResultsWeek(results){
         this.weatherWeek = results;
-        //console.log(results);
-        var elementWeek = document.querySelectorAll(".one--container");
-
-        console.log(elementWeek)
-        for (var i=0; i< this.weatherWeek.list.length; i++){
-          //console.log(this.weatherWeek.list[i].main.temp_max)
-          if (this.weatherWeek.list[i].main.temp_max > 16){
-            elementWeek.classList.add("hot")
-            elementWeek.classList.remove('cold')
-          } else {
-            elementWeek.classList.add("cold")
-            elementWeek.classList.remove('hot')
-          }
-        }
-
       },
+      mediumWeather(temp){
+        return temp > 16 ? true : false
+      }
     }
   }
 </script>
@@ -71,12 +63,12 @@
     right: -30px;
     font-size: 80px;
   }
-  #one--container.cold{
+  .one--container.cold{
     background-image: url('../assets/cold.png');
     background-size: 100% 100%;
     background-position: center;
   }
-  #one--container.hot{
+  .one--container.hot{
     background-image: url('../assets/hot.png');
     background-size: 100% 100%;
     background-position: center;
