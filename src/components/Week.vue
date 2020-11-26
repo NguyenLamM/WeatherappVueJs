@@ -3,10 +3,9 @@
     <search @ville-envoyee="fetchWeatherWeek" />
     <p class="text-xl mt-5 mb-3">{{query}}</p>
     <div class="weather-week flex flex-col">
-      <div class="" v-for="(weather, index) in weatherWeek.list" :key="index" >
+      <div class="" v-for="(weather, index) in weatherWeek.list" :key="index"  >
         <div
-          id="one--container"
-          class="h-48 flex flex-col justify-center w-2/4 mx-auto rounded-lg relative"
+          class="h-48 flex flex-col justify-center w-2/4 mx-auto rounded-lg relative one--container"
           v-if="index % 4 == 0"
           >
           <div>
@@ -47,7 +46,8 @@
       setResultsWeek(results){
         this.weatherWeek = results;
         //console.log(results);
-        var elementWeek = document.getElementById("one--container");
+        var elementWeek = document.querySelectorAll(".one--container");
+
         console.log(elementWeek)
         for (var i=0; i< this.weatherWeek.list.length; i++){
           //console.log(this.weatherWeek.list[i].main.temp_max)
