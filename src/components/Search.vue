@@ -7,6 +7,7 @@
         <li v-for="(item, index) in arraySearch" :key="index">
           {{item}}
         </li>
+        <p>prefs: {{ prefs}}</p>
       </ul>
     </div>
   </div>
@@ -31,15 +32,24 @@
         }
       }
     },
-    mounted() {
-      if (localStorage.arraySearch) {
-        this.arraySearch = localStorage.arraySearch;
+    created: function(){
+      var loaded = JSON.parse(localStorage.getItem('myPrefs'));
+      if(loaded){
+        this.arraySearch = loaded.storedCities;
+      }
+      else{
+        console.warm('cant load prefs. Maybe the first time you come');
       }
     },
-    watch: {
-      arraySearch(newName) {
-        localStorage.arraySearch = newName;
+    computed: {
+      prefs: function(){
+        var p = {
+          storedCities: this.arraySearch
+        };
+        localStorage.setItem('myPrefs', JSON.stringify(p));
+        return p;
       }
     }
+
   }
 </script>
