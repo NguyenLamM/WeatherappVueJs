@@ -2,13 +2,11 @@
   <div>
     <input class="w-2/4 p-4" type="text" placeholder="Ville" v-model="query" ville="test" @keypress="citySend">
     <div>
-      <p>Recherche precedente</p>
-      <ul>
-        <li v-for="(item, index) in arraySearch" :key="index">
-          {{item}}
-        </li>
-        <p>prefs: {{ prefs}}</p>
-      </ul>
+      <p class="mt-3">Recherche precedente</p>
+      <div class="flex flex-row justify-center flex-wrap">
+        <p class="mx-2 mt-1" v-for="(item, index) in arraySearch" :key="index">{{item}}</p>
+        <p style="display: none ">prefs {{prefs}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -27,7 +25,6 @@
           this.arraySearch.push(this.query),
           this.$emit("ville-envoyee",{
             ville: this.query,
-
           })
         }
       }
@@ -38,7 +35,7 @@
         this.arraySearch = loaded.storedCities;
       }
       else{
-        console.warm('cant load prefs. Maybe the first time you come');
+        console.log('cant load prefs. Maybe the first time you come');
       }
     },
     computed: {

@@ -3,7 +3,7 @@
   <div
     id="one-day--container"
     class="mt-16 h-48 flex flex-col justify-center w-2/4 mx-auto rounded-lg relative"
-    :class="typeof weather.main != 'undefined'"
+    :class="typeof weather.main != 'undefined' && {'hot': mediumWeather(weather.weather[0].main), 'cold': !mediumWeather(weather.weather[0].main) }"
   >
     <div class="result-container" v-if="typeof weather.main != 'undefined'">
       <div class="Location"> {{ weather.name }}, {{ weather.sys.country}}</div>
@@ -43,9 +43,6 @@
               return res.json();
             }).then(this.setResults);
       },
-
-
-
       setResults(results){
         this.weather = results;
         var element = document.getElementById("one-day--container");
@@ -58,7 +55,7 @@
           element.classList.remove('hot')
         }
       },
-       dateBuilder () {
+      dateBuilder () {
         let d = new Date();
         let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -67,6 +64,9 @@
         let month = months[d.getMonth()];
         let year = d.getFullYear();
         return `${day} ${date} ${month} ${year}`;
+      },
+      mediumWeather(temp){
+        return temp > 16 ? true : false
       }
     }
   }

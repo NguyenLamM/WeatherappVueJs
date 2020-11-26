@@ -1,11 +1,11 @@
 <template>
   <div class="bg-gray-200">
     <search @ville-envoyee="fetchWeatherWeek" />
-    <p class="text-xl mt-5 mb-3">{{query}}</p>
-    <div class="weather-week flex flex-col">
+    <p class="text-xl mt-5">{{query}}</p>
+    <div class="weather-week flex flex-col pb-10">
       <div class="" v-for="(weather, index) in weatherWeek.list" :key="index"  >
         <div
-          class="h-48 flex flex-col justify-center w-2/4 mx-auto rounded-lg relative one--container"
+          class="h-48 flex flex-col justify-center w-2/4 mx-auto rounded-lg relative one--container mt-10 relative"
           v-if="index % 4 == 0"
           :class="{'hot': mediumWeather(weather.main.temp_max), 'cold': !mediumWeather(weather.main.temp_max) }"
         >
@@ -14,6 +14,10 @@
             <p>{{weather.weather[0].main}}</p>
             <p>Description: {{weather.weather[0].description}}</p>
             <p>Température {{weather.main.temp_max}} °C</p>
+            <div class="absolute emoticon" v-if=" weather.weather[0].main == 'Clouds'">☁️</div>
+            <div class="absolute emoticon" v-if=" weather.weather[0].main == 'Rain'">🌧</div>
+            <div class="absolute emoticon" v-if=" weather.weather[0].main == 'Clear'">☀️</div>
+            <div class="absolute emoticon" v-if=" weather.weather[0].main == 'Fog' || weather.weather[0].main == 'Mist'">🌫</div>
           </div>
         </div>
       </div>
