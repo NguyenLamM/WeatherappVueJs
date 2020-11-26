@@ -1,5 +1,5 @@
 <template>
-  <h1>Week</h1>
+  <h1 class="pt-5 pb-3 text-xl">Week</h1>
   <week />
 </template>
 

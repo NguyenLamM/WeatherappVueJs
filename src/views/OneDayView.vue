@@ -1,5 +1,5 @@
 <template>
-  <h1>One day</h1>
+  <h1 class="pt-5 pb-3 text-xl">One day</h1>
   <one-day @ville-envoyee="weather"/>
 </template>
 

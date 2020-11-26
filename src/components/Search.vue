@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" placeholder="Ville" v-model="query" ville="test" @keypress="citySend">
+    <input class="w-2/4 p-4" type="text" placeholder="Ville" v-model="query" ville="test" @keypress="citySend">
   </div>
 </template>
 

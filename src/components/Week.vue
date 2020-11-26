@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="bg-gray-200">
     <search @ville-envoyee="fetchWeatherWeek" />
-    <p>{{query}}</p>
-    <div class="weather-week">
-      <div v-for="(weather, index) in weatherWeek.list" :key="index" >
-        <div v-if="index % 4 == 0">
+    <p class="text-xl mt-5 mb-3">{{query}}</p>
+    <div class="weather-week flex flex-col">
+      <div class="" v-for="(weather, index) in weatherWeek.list" :key="index" >
+        <div
+          id="one--container"
+          class="h-48 flex flex-col justify-center w-2/4 mx-auto rounded-lg relative"
+          v-if="index % 4 == 0"
+          >
           <div>
             <p>{{weather.dt_txt}}</p>
             <p>{{weather.weather[0].main}}</p>
@@ -41,9 +45,40 @@
             }).then(this.setResultsWeek);
       },
       setResultsWeek(results){
-      this.weatherWeek = results;
-      console.log(this.weatherWeek);
+        this.weatherWeek = results;
+        //console.log(results);
+        var elementWeek = document.getElementById("one--container");
+        console.log(elementWeek)
+        for (var i=0; i< this.weatherWeek.list.length; i++){
+          //console.log(this.weatherWeek.list[i].main.temp_max)
+          if (this.weatherWeek.list[i].main.temp_max > 16){
+            elementWeek.classList.add("hot")
+            elementWeek.classList.remove('cold')
+          } else {
+            elementWeek.classList.add("cold")
+            elementWeek.classList.remove('hot')
+          }
+        }
+
       },
     }
   }
 </script>
+
+<style>
+  .emoticon{
+    top: -43px;
+    right: -30px;
+    font-size: 80px;
+  }
+  #one--container.cold{
+    background-image: url('../assets/cold.png');
+    background-size: 100% 100%;
+    background-position: center;
+  }
+  #one--container.hot{
+    background-image: url('../assets/hot.png');
+    background-size: 100% 100%;
+    background-position: center;
+  }
+</style>

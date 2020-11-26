@@ -1,20 +1,21 @@
 <template>
+  <search @ville-envoyee="fetchWeather" />
   <div
     id="one-day--container"
-    class=""
+    class="mt-16 h-48 flex flex-col justify-center w-2/4 mx-auto rounded-lg relative"
     :class="typeof weather.main != 'undefined'"
-
   >
-    <search @ville-envoyee="fetchWeather" />
-    <div>
-      <div class="result-container" v-if="typeof weather.main != 'undefined'">
-        <div class="Location"> {{ weather.name }}, {{ weather.sys.country}}</div>
-        <div class="data">{{ dateBuilder() }}</div>
-      </div>
-      <div class="weather-box"  v-if="typeof weather.main != 'undefined'">
-        <div class="temp">{{ Math.round(weather.main.temp) }}°c</div>
-        <div class="weather">{{weather.weather[0].main}}</div>
-      </div>
+    <div class="result-container" v-if="typeof weather.main != 'undefined'">
+      <div class="Location"> {{ weather.name }}, {{ weather.sys.country}}</div>
+      <div class="data">{{ dateBuilder() }}</div>
+    </div>
+    <div class="weather-box"  v-if="typeof weather.main != 'undefined'">
+      <div class="temp">{{ Math.round(weather.main.temp) }}°c</div>
+      <div class="weather">{{weather.weather[0].main}}</div>
+      <div class="absolute emoticon" v-if=" weather.weather[0].main == 'Clouds'">☁️</div>
+      <div class="absolute emoticon" v-if=" weather.weather[0].main == 'Rain'">🌧</div>
+      <div class="absolute emoticon" v-if=" weather.weather[0].main == 'Clear'">☀️</div>
+      <div class="absolute emoticon" v-if=" weather.weather[0].main == 'Fog' || weather.weather[0].main == 'Mist'">🌫</div>
     </div>
   </div>
 </template>
@@ -44,13 +45,15 @@
       },
 
       setResults(results){
-        console.log(results)
         this.weather = results;
         var element = document.getElementById("one-day--container");
+        console.log(element)
         if (this.weather.main.temp > 16){
           element.classList.add("hot")
+          element.classList.remove('cold')
         } else {
           element.classList.add("cold")
+          element.classList.remove('hot')
         }
       },
        dateBuilder () {
@@ -68,15 +71,19 @@
 </script>
 
 <style>
-  #one-day--container{
-    height: 100vh;
+  .emoticon{
+    top: -43px;
+    right: -30px;
+    font-size: 80px;
   }
   #one-day--container.cold{
     background-image: url('../assets/cold.png');
-    background-size: cover;
+    background-size: 100% 100%;
+    background-position: center;
   }
   #one-day--container.hot{
     background-image: url('../assets/hot.png');
-    background-size: cover;
+    background-size: 100% 100%;
+    background-position: center;
   }
 </style>

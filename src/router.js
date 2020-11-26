@@ -11,7 +11,7 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-  linkActiveClass: 'pb-4 border-b-2'
+  linkActiveClass: 'bg-blue-600 font-bold text-white'
 })
 
 export default router
